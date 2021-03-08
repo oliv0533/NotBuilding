@@ -1,25 +1,7 @@
 version: '3.4'
 services:
-  reshopper:
-    image: ${DOCKER_REGISTRY-}reshopper:${DOCKER_TAG-latest}
-    build:
-      target: app-reshopper
-      context: .
-      dockerfile: Dockerfile
-      args:
-        CODE_VERSION: ${CODE_VERSION-not_defined}
-
-  reshopper-events:
-    image: ${DOCKER_REGISTRY-}reshopperevents:${DOCKER_TAG-latest}
-    build:
-      target: app-reshopper-events
-      context: .
-      dockerfile: Dockerfile
-      args:
-        CODE_VERSION: ${CODE_VERSION-not_defined}
-
   reshopper-tests:
-    image: ${DOCKER_REGISTRY-}reshoppertests:${DOCKER_TAG-latest}
+    image: TestRunnerProject
     volumes:
       - ./:/src
     build:

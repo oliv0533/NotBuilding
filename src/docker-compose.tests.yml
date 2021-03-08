@@ -3,7 +3,7 @@ services:
 
   reshopper-tests:
     container_name: tests
-    image: ${DOCKER_REGISTRY-}reshoppertests:${DOCKER_TAG-latest}
+    image: tests
     build:
       context: .
       target: testrunner
