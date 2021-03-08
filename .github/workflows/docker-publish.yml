@@ -1,0 +1,49 @@
+name: Docker
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - master
+      
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    outputs:
+      version: ${{ steps.constants.outputs.version }}
+      git_author: ${{ steps.constants.outputs.git_author }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build images in Docker
+        run: |
+          docker-compose -f docker-compose.deploy.yml build
+        
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Pull Docker images
+        run: |
+          docker-compose \
+            -f docker-compose.yml \
+            -f docker-compose.tests.yml \
+            -f docker-compose.no-logs.yml \
+            pull \
+            --parallel \
+            --quiet
+
+      - name: Run tests in Docker
+        working-directory: src
+        run: |
+          docker-compose \
+            -f docker-compose.yml \
+            -f docker-compose.tests.yml \
+            -f docker-compose.no-logs.yml \
+            up \
+            --abort-on-container-exit
