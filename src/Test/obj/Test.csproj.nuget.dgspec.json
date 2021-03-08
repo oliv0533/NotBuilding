@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Source\\TestTest\\NotBuilding\\TestRunnerProject\\TestRunnerProject.csproj": {}
+    "C:\\Source\\TestTest\\NotBuilding\\src\\Test\\Test.csproj": {}
   },
   "projects": {
-    "C:\\Source\\TestTest\\NotBuilding\\TestRunnerProject\\TestRunnerProject.csproj": {
+    "C:\\Source\\TestTest\\NotBuilding\\src\\Test\\Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Source\\TestTest\\NotBuilding\\TestRunnerProject\\TestRunnerProject.csproj",
-        "projectName": "TestRunnerProject",
-        "projectPath": "C:\\Source\\TestTest\\NotBuilding\\TestRunnerProject\\TestRunnerProject.csproj",
+        "projectUniqueName": "C:\\Source\\TestTest\\NotBuilding\\src\\Test\\Test.csproj",
+        "projectName": "Test",
+        "projectPath": "C:\\Source\\TestTest\\NotBuilding\\src\\Test\\Test.csproj",
         "packagesPath": "C:\\Users\\Olive\\.nuget\\packages\\",
-        "outputPath": "C:\\Source\\TestTest\\NotBuilding\\TestRunnerProject\\obj\\",
+        "outputPath": "C:\\Source\\TestTest\\NotBuilding\\src\\Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Olive\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,20 +39,6 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "dependencies": {
-            "Microsoft.NET.Test.Sdk": {
-              "target": "Package",
-              "version": "[16.5.0, )"
-            },
-            "NUnit": {
-              "target": "Package",
-              "version": "[3.12.0, )"
-            },
-            "NUnit3TestAdapter": {
-              "target": "Package",
-              "version": "[3.16.1, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

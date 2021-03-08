@@ -4628,11 +4628,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Source\\TestTest\\NotBuilding\\TestRunnerProject\\TestRunnerProject.csproj",
+      "projectUniqueName": "C:\\Source\\TestTest\\NotBuilding\\src\\TestRunnerProject\\TestRunnerProject.csproj",
       "projectName": "TestRunnerProject",
-      "projectPath": "C:\\Source\\TestTest\\NotBuilding\\TestRunnerProject\\TestRunnerProject.csproj",
+      "projectPath": "C:\\Source\\TestTest\\NotBuilding\\src\\TestRunnerProject\\TestRunnerProject.csproj",
       "packagesPath": "C:\\Users\\Olive\\.nuget\\packages\\",
-      "outputPath": "C:\\Source\\TestTest\\NotBuilding\\TestRunnerProject\\obj\\",
+      "outputPath": "C:\\Source\\TestTest\\NotBuilding\\src\\TestRunnerProject\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Olive\\AppData\\Roaming\\NuGet\\NuGet.Config",

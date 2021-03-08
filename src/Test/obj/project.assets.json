@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Source\\TestTest\\NotBuilding\\Test\\Test.csproj",
+      "projectUniqueName": "C:\\Source\\TestTest\\NotBuilding\\src\\Test\\Test.csproj",
       "projectName": "Test",
-      "projectPath": "C:\\Source\\TestTest\\NotBuilding\\Test\\Test.csproj",
+      "projectPath": "C:\\Source\\TestTest\\NotBuilding\\src\\Test\\Test.csproj",
       "packagesPath": "C:\\Users\\Olive\\.nuget\\packages\\",
-      "outputPath": "C:\\Source\\TestTest\\NotBuilding\\Test\\obj\\",
+      "outputPath": "C:\\Source\\TestTest\\NotBuilding\\src\\Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Olive\\AppData\\Roaming\\NuGet\\NuGet.Config",
