@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build images in Docker
-        run: docker-compose -f docker-compose.deploy.yml build
+        run: docker-compose -f ./docker-compose.deploy.yml build
         
   test:
     runs-on: ubuntu-latest
@@ -30,9 +30,9 @@ jobs:
       - name: Pull Docker images
         run: |
           docker-compose \
-            -f docker-compose.yml \
-            -f docker-compose.tests.yml \
-            -f docker-compose.no-logs.yml \
+            -f ./docker-compose.yml \
+            -f ./docker-compose.tests.yml \
+            -f ./docker-compose.no-logs.yml \
             pull \
             --parallel \
             --quiet
