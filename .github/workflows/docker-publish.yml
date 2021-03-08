@@ -18,8 +18,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build images in Docker
-        run: |
-          docker-compose -f docker-compose.deploy.yml build
+        run: docker-compose -f docker-compose.deploy.yml build
         
   test:
     runs-on: ubuntu-latest
