@@ -1,0 +1,70 @@
+﻿version: '3.4'
+services:
+
+  reshopper-tests:
+    container_name: tests
+    image: ${DOCKER_REGISTRY-}reshoppertests:${DOCKER_TAG-latest}
+    build:
+      context: .
+      target: testrunner
+      args:
+        CODE_VERSION: ${CODE_VERSION-not_specified}
+    depends_on:
+      - mongo-primary
+      - elasticsearch
+      - redis
+      - localstack
+    networks:
+      internal:
+          aliases:
+            - tests
+    environment:
+      ESBaseUrl2: "http://elasticsearch:9200/"
+      MongoConnection: "mongodb://root:pw@mongo-primary:27017/admin?gssapiServiceName=mongodb"
+      MongoDatabase: "admin"
+      RedisConnection: "redis:6379"
+      SqsHost: "localstack:4576"
+      SnsHost: "localstack:4575"
+      SqsAccessKey: "foo"
+      SqsSecretKey: "bar"
+      RootUrl: "https://elasticsearch:49304"
+      feature_DisableMongoDbTransactions: "true"
+      UsersToSeed: "1"
+      MinimumItemsToSeed: "1"
+      MaximumItemsToSeed: "1"
+
+  localstack:
+    container_name: tests-localstack
+    ports:
+      - "5567-5597:4567-4597"
+
+  mongo-primary:
+    container_name: tests-mongo-primary
+    ports:
+      - 27020:27017
+
+  mongo-secondary:
+    container_name: tests-mongo-secondary
+    ports:
+      - 27021:27017
+
+  mongo-arbiter:
+    container_name: tests-mongo-arbiter
+    ports:
+      - 27022:27017
+
+  elasticsearch:
+    container_name: tests-elasticsearch
+    ports:
+      - 9201:9200
+
+  redis:
+    container_name: tests-redis
+    ports:
+      - 6380:6379
+
+  active-mq:
+    container_name: tests-active-mq
+    ports:
+      - "61618:61616"
+      - "8164:8162"

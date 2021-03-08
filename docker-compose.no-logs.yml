@@ -1,0 +1,30 @@
+﻿version: '3.4'
+services:
+  localstack:
+    logging:
+      driver: none
+      
+  mongo-primary:
+    logging:
+      driver: none
+
+  mongo-secondary:
+    logging:
+      driver: none
+
+  mongo-arbiter:
+    logging:
+      driver: none
+
+  elasticsearch:
+    logging:
+      driver: none
+
+  redis:
+    logging:
+      driver: none
+
+  active-mq:
+    logging:
+      driver: none
+

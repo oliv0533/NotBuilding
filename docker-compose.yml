@@ -1,0 +1,117 @@
+﻿version: '3.4'
+
+networks:
+    internal:
+        driver: bridge
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      - HOSTNAME_EXTERNAL=localstack
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - SERVICES=sqs,s3,sns
+    healthcheck:
+      test:
+        - CMD
+        - bash
+        - -c
+        - awslocal s3 ls && awslocal sqs list-queues
+      interval: 5s
+      timeout: 10s
+      start_period: 10s
+    networks:
+      internal:
+          aliases:
+            - localstack
+
+  mongo-primary:
+    image: bitnami/mongodb:latest
+    environment:
+      MONGODB_DATABASE: "dev"
+      MONGODB_REPLICA_SET_MODE: "primary"
+      MONGODB_ADVERTISED_HOSTNAME: "mongo-primary"
+      MONGODB_ROOT_PASSWORD: "pw"
+      MONGODB_REPLICA_SET_KEY: "somekey"
+    tmpfs: /data/db
+    volumes:
+    - ./data/primary:/docker-entrypoint-initdb.d:ro
+    networks:
+      internal:
+          aliases:
+            - mongo-primary
+
+  mongo-secondary:
+    image: bitnami/mongodb:latest
+    environment:
+      MONGODB_REPLICA_SET_MODE: "secondary"
+      MONGODB_ADVERTISED_HOSTNAME: "mongo-secondary"
+      MONGODB_PRIMARY_HOST: "mongo-primary"
+      MONGODB_PRIMARY_PORT_NUMBER: "27017"
+      MONGODB_PRIMARY_ROOT_PASSWORD: "pw"
+      MONGODB_REPLICA_SET_KEY: "somekey"
+    tmpfs: /data/db
+    volumes:
+    - ./data/secondary:/docker-entrypoint-initdb.d:ro
+    networks:
+      internal:
+          aliases:
+            - mongo-secondary
+
+  mongo-arbiter:
+    image: bitnami/mongodb:latest
+    environment:
+      MONGODB_REPLICA_SET_MODE: "arbiter"
+      MONGODB_ADVERTISED_HOSTNAME: "mongo-arbiter"
+      MONGODB_PRIMARY_HOST: "mongo-primary"
+      MONGODB_PRIMARY_PORT_NUMBER: "27017"
+      MONGODB_PRIMARY_ROOT_PASSWORD: "pw"
+      MONGODB_REPLICA_SET_KEY: "somekey"
+    tmpfs: /data/db
+    volumes:
+    - ./data/secondary:/docker-entrypoint-initdb.d:ro
+    networks:
+      internal:
+          aliases:
+            - mongo-arbiter
+
+  elasticsearch:
+    image: elasticsearch:7.10.1
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health?wait_for_status=green&timeout=1s"]
+      interval: 1s
+      timeout: 1s
+      retries: 300
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    tmpfs: /usr/share/elasticsearch/data
+    networks:
+      internal:
+          aliases:
+            - elasticsearch
+
+  redis:
+    image: redis:latest
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    networks:
+      internal:
+          aliases:
+            - redis
+
+  active-mq:
+    image: webcenter/activemq:latest
+    networks:
+      internal:
+          aliases:
+            - active-mq
