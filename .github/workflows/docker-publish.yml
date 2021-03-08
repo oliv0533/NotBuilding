@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build images in Docker
-        working-directory: /
+        working-directory: src
         run: |
           docker-compose -f docker-compose.deploy.yml build
         
@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Pull Docker images
-        working-directory: /
+        working-directory: src
         run: |
           docker-compose \
             -f ./docker-compose.yml \
